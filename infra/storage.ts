@@ -1,1 +1,7 @@
-export const bucket = new sst.aws.Bucket("MyBucket");
+
+export const table = new sst.aws.Dynamo("Form", {
+    fields:{
+        userId: "string",
+    },
+    primaryIndex: {hashKey: "userId"}
+})

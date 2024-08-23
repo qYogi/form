@@ -1,5 +1,5 @@
 {
-  "name": "monorepo-template",
+  "name": "form",
   "version": "0.0.0",
   "workspaces": [
     "packages/*"
@@ -7,6 +7,7 @@
   "scripts": {},
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
+    "prettier": "^3.3.3",
     "typescript": "5.3.3"
   },
   "dependencies": {

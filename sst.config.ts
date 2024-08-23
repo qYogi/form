@@ -3,17 +3,26 @@
 export default $config({
   app(input) {
     return {
-      name: "monorepo-template",
+      name: "form",
       removal: input?.stage === "production" ? "retain" : "remove",
       home: "aws",
     };
   },
+
+
+
   async run() {
     await import("./infra/storage");
-    const api = await import("./infra/api");
+    //const api = await import("./infra/api");
+    const auth = await import("./infra/auth");
+    await import("./infra/web");
+
 
     return {
-      api: api.myApi.url,
+      UserPool: auth.userPool.id,
+      Region: aws.getRegionOutput().name,
+      IdentityPool: auth.identityPool.id,
+      UserPoolClient: auth.userPoolClient.id,
     };
   },
 });

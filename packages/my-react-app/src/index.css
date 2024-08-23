@@ -1,0 +1,32 @@
+:root {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9ff;
+  height: 100vh;
+  width: 100vw;
+
+  /*color variables*/
+  --denim: #022959;
+  --pruple: #483eff;
+  --hoverPurple: #928cff;
+  --gray: #9699aa;
+  --lightGray: #d6d9e6;
+  --whiteGray: #f8f9ff;
+  --white: #ffffff;
+  --lighterPurple: #abbcff;
+  --babyBlue: #bee2fd;
+  --BG: #eff5ff;
+}
+
+@media (max-width: 768px) {
+  :root {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+}
