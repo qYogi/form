@@ -14,7 +14,7 @@ export function OnboardingScreen() {
   const dynamicStyle: React.CSSProperties =
     windowWidth < 768
       ? { marginTop: "27rem", position: "absolute" }
-      : { marginRight: "6.5rem" };
+      : { marginRight: "6.5rem", display: "flex", alignSelf: "center" };
 
   const [selectedFormIndexState, setSelectedFormIndex] = useState(0);
 

@@ -2,15 +2,17 @@ import React, { FormEvent, useEffect, useState } from "react";
 import formStyles from "./form.module.css";
 import btnStyles from "./button.module.css";
 import { PersonalInfoFormValues } from "./types.ts";
+import { useLocation } from "react-router-dom";
 
 interface Props {
   onSuccessfulSubmit: (values: PersonalInfoFormValues) => void;
 }
 
 export const Form: React.FC<Props> = ({ onSuccessfulSubmit }: Props) => {
+  const location = useLocation();
   const [values, setValues] = useState<PersonalInfoFormValues>({
     name: "",
-    email: "",
+    email: location.state?.email || "",
     phone: "",
   });
   const [errors, setErrors] = useState<PersonalInfoFormValues>({
@@ -37,9 +39,13 @@ export const Form: React.FC<Props> = ({ onSuccessfulSubmit }: Props) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    const newValues = { ...values, [name]: value };
-    setValues(newValues);
-    localStorage.setItem("personalInfoFormValues", JSON.stringify(newValues));
+    if (name === "phone") {
+      const numericValue = value.replace(/\D/g, ""); // Remove any non-numeric characters
+      setValues({ ...values, [name]: numericValue });
+    } else {
+      setValues({ ...values, [name]: value });
+    }
+    localStorage.setItem("personalInfoFormValues", JSON.stringify(values));
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -81,6 +87,7 @@ export const Form: React.FC<Props> = ({ onSuccessfulSubmit }: Props) => {
                 placeholder="e.g. ihateottomans@thegreat.com"
                 value={values.email}
                 onChange={handleChange}
+                disabled
               />
               {errors.email && (
                 <span className={formStyles.error}>{errors.email}</span>

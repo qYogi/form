@@ -1,9 +1,18 @@
 import "./App.css";
 import "./index.css";
-import { OnboardingScreen } from "./onboarding";
+import Routes from "./Routes.tsx";
+import { AppContext, AppContextType } from "./lib/contextLib";
+import { useState } from "react";
 
 function App() {
-  return <OnboardingScreen />;
+  const [isAuthenticated, userHasAuthenticated] = useState(false);
+  return (
+    <AppContext.Provider
+      value={{ isAuthenticated, userHasAuthenticated } as AppContextType}
+    >
+      <Routes />
+    </AppContext.Provider>
+  );
 }
 
 export default App;

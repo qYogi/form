@@ -1,0 +1,58 @@
+.LoaderButton {
+  margin-top: 12px;
+  background-color: var(--denim);
+  width: 19.5rem;
+  height: 1.7rem;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.LoaderButton .spinning {
+  margin-right: 7px;
+  margin-bottom: 1px;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: scale(1) rotate(0deg);
+  }
+  to {
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+.btn.disabled,
+.btn:disabled,
+fieldset:disabled .btn {
+  color: var(--bs-btn-disabled-color);
+  pointer-events: none;
+  opacity: var(--bs-btn-disabled-opacity);
+  background-color: var(--denim);
+  border-color: var(--denim);
+}
+
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--denim);
+  --bs-btn-border-color: var(--denim);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--denim);
+  --bs-btn-hover-border-color: var(--denim);
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--denim);
+  --bs-btn-active-border-color: var(--denim);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: var(--denim);
+  --bs-btn-disabled-border-color: var(--denim);
+}
+
+.btn-primary:hover {
+  border-color: var(--lighterPurple);
+  background-color: var(--lighterPurple);
+}
