@@ -40,7 +40,7 @@ export const Form: React.FC<Props> = ({ onSuccessfulSubmit }: Props) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === "phone") {
-      const numericValue = value.replace(/\D/g, ""); // Remove any non-numeric characters
+      const numericValue = value.replace(/\D/g, "");
       setValues({ ...values, [name]: numericValue });
     } else {
       setValues({ ...values, [name]: value });
@@ -53,7 +53,6 @@ export const Form: React.FC<Props> = ({ onSuccessfulSubmit }: Props) => {
 
     if (validate()) {
       onSuccessfulSubmit(values);
-      // localStorage.removeItem("personalInfoFormValues");
     }
   };
 

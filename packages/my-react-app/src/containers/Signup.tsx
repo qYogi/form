@@ -60,7 +60,7 @@ export default function Signup() {
       await Auth.confirmSignUp(fields.email, fields.confirmationCode);
       await Auth.signIn(fields.email, fields.password);
       userHasAuthenticated(true);
-      nav("/form");
+      nav("/form", { state: { email: fields.email } });
     } catch (e) {
       onError(e);
       setIsLoading(false);
@@ -80,7 +80,7 @@ export default function Signup() {
               onChange={handleFieldChange}
               value={fields.confirmationCode}
             />
-            <Form.Text muted>Please check your email for the code.</Form.Text>
+            <Form.Text>Please check your email for the code.</Form.Text>
           </Form.Group>
           <LoaderButton
             size="lg"

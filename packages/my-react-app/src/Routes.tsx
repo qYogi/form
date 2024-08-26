@@ -33,14 +33,7 @@ export default function Pages() {
           </AuthenticatedRoute>
         }
       />
-      <Route
-        path="/profile"
-        element={
-          <AuthenticatedRoute>
-            <Profile />
-          </AuthenticatedRoute>
-        }
-      />
+      <Route path="/profile" element={<Profile />} />
       <Route path="*" element={<NotFound />} />;
     </Routes>
   );

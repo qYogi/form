@@ -1,0 +1,57 @@
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 90vh;
+  width: 90vw;
+  padding: 0;
+  border-radius: 8px;
+  font-family: "Ubuntu", sans-serif;
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.15);
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  background-color: var(--denim) !important;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.nav-link {
+  color: var(--white) !important;
+}
+
+.navbar-brand {
+  color: var(--white) !important;
+  font-size: 1.4rem !important;
+  font-weight: 500 !important;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  height: 5rem;
+  width: 100%;
+  background-color: var(--white);
+  box-shadow: 0 6px 13px rgba(0, 0, 0, 0.1);
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+.content {
+  display: flex;
+  background-color: var(--BG);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.profile {
+  display: flex;
+  height: 100%;
+  border: 1px dashed var(--denim);
+  border-radius: 8px;
+}

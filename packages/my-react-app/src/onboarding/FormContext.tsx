@@ -5,6 +5,12 @@ import React, { createContext, useContext, useState, ReactNode } from "react";
 // const YearlyContext = createContext<YearlyContextType | undefined>(undefined);
 type PlanName = "Arcade" | "Advanced" | "Pro";
 
+// interface User {
+//   name: string;
+//   email: string;
+//   phone: string;
+// }
+
 interface Plan {
   id: string;
   isYearly: boolean;
