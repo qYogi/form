@@ -8,6 +8,7 @@ import { Panel } from "./Panel";
 import { PlanProvider } from "./FormContext.tsx";
 import { ThankYouScreen } from "./ThankYouScreen/ThankYouScreen.tsx";
 import UseWindowWidth from "./Panel/UseWindowWidth.tsx";
+import { Profile } from "/Users/bogdan/WebstormProjects/Form/form/packages/my-react-app/src/containers/Profile.tsx";
 
 export function OnboardingScreen() {
   const windowWidth = UseWindowWidth();
@@ -24,6 +25,7 @@ export function OnboardingScreen() {
     PickAddOnForm,
     ConfirmPaymentForm,
     ThankYouScreen,
+    Profile,
   ];
 
   const CurrentForm = forms[selectedFormIndexState];
@@ -35,6 +37,7 @@ export function OnboardingScreen() {
   function goToPreviousStep() {
     setSelectedFormIndex((prev) => (prev - 1) % forms.length);
   }
+
   const changePlan = () => {
     setSelectedFormIndex(1);
   };
@@ -44,19 +47,28 @@ export function OnboardingScreen() {
     localStorage.removeItem("personalInfoFormValues");
   };
 
+  const goToProfile = () => {
+    setSelectedFormIndex(5);
+  };
+
   return (
     <PlanProvider>
-      <Layout>
-        <Panel currentStep={selectedFormIndexState} />
-        <div style={dynamicStyle}>
-          <CurrentForm
-            goToPreviousStep={goToPreviousStep}
-            goToNextStep={goToNextStep}
-            changePlan={changePlan}
-            lastStep={lastStep}
-          />
-        </div>
-      </Layout>
+      {selectedFormIndexState === 5 ? (
+        <Profile />
+      ) : (
+        <Layout>
+          <Panel currentStep={selectedFormIndexState} />
+          <div style={dynamicStyle}>
+            <CurrentForm
+              goToPreviousStep={goToPreviousStep}
+              goToNextStep={goToNextStep}
+              changePlan={changePlan}
+              lastStep={lastStep}
+              {...(selectedFormIndexState === 4 && { goToProfile })}
+            />
+          </div>
+        </Layout>
+      )}
     </PlanProvider>
   );
 }

@@ -1,8 +1,12 @@
 import { ThanksComponent } from "./ThanksComponent.tsx";
 import styles from "./thanks.module.css";
 
-export const ThankYouScreen = () => (
+interface Props {
+  goToProfile?: () => void;
+}
+
+export const ThankYouScreen = ({ goToProfile }: Props) => (
   <div className={styles.container}>
-    <ThanksComponent />
+    <ThanksComponent goToProfile={goToProfile} />
   </div>
 );

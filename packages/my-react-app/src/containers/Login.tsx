@@ -32,6 +32,8 @@ export default function Login() {
 
     try {
       await Auth.signIn(fields.email, fields.password);
+      const user = await Auth.currentAuthenticatedUser();
+      console.log(user);
       userHasAuthenticated(true);
       nav("/form", { state: { email: fields.email } });
     } catch (error) {

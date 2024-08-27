@@ -49,9 +49,84 @@
   border-bottom-right-radius: 8px;
 }
 
+.nav-item .nav-link {
+  color: var(--pruple) !important;
+}
+
+.nav-pills .nav-link.active {
+  background-color: var(--lighterPurple);
+}
+
 .profile {
   display: flex;
   height: 100%;
   border: 1px dashed var(--denim);
   border-radius: 8px;
+}
+
+.tabTitle h2 {
+}
+
+.planName h3 {
+  font-weight: 400;
+  margin-left: 1.5rem;
+}
+
+.planDescription p {
+  font-weight: 300;
+  margin-left: 2.5rem;
+}
+
+.selectedAddOns {
+  margin-left: 1.5rem;
+}
+
+.selectedAddOns h4 {
+  font-weight: 400;
+}
+
+.selectedAddOns li {
+  list-style-type: circle;
+  margin-left: 1rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+
+.summary {
+  margin-left: 1.5rem;
+}
+
+.summary h4 {
+  font-weight: 400;
+}
+
+.summary p {
+  font-weight: 300;
+  margin-left: 1rem;
+}
+
+.billingInfo {
+  margin-left: 1.5rem;
+}
+
+.billingInfo h4 {
+  font-weight: 400;
+}
+
+.billingInfo p {
+  font-weight: 300;
+  margin-left: 1rem;
+}
+
+.billingSummary {
+  margin-left: 1.5rem;
+}
+
+.billingSummary h4 {
+  font-weight: 400;
+}
+
+.billingSummary p {
+  font-weight: 300;
+  margin-left: 1rem;
 }

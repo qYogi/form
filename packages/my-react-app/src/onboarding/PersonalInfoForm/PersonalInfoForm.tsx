@@ -8,8 +8,7 @@ export const PersonalInfoForm = ({ goToNextStep }: Props) => {
   return (
     <>
       <Form
-        onSuccessfulSubmit={(data) => {
-          console.log(data);
+        onSuccessfulSubmit={() => {
           goToNextStep();
         }}
       />

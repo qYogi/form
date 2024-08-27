@@ -36,6 +36,12 @@ interface PlanContextType {
   setAddOns: (addOns: { [id: string]: AddOn }) => void;
   checkedAddOns: { [id: string]: boolean };
   setCheckedAddOns: (checkedAddOns: { [id: string]: boolean }) => void;
+  name: string;
+  email: string;
+  phone: string;
+  setName: (name: string) => void;
+  setEmail: (email: string) => void;
+  setPhone: (phone: string) => void;
 }
 
 const PlanContext = createContext<PlanContextType | undefined>(undefined);
@@ -62,6 +68,10 @@ export const PlanProvider: React.FC<{ children: ReactNode }> = ({
   const [checkedAddOns, setCheckedAddOns] = useState<{ [id: string]: boolean }>(
     {},
   );
+
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
 
   const handleToggle = () => {
     setIsYearly((prev) => {
@@ -125,6 +135,12 @@ export const PlanProvider: React.FC<{ children: ReactNode }> = ({
         setAddOns,
         checkedAddOns,
         setCheckedAddOns,
+        name,
+        email,
+        phone,
+        setName,
+        setEmail,
+        setPhone,
       }}
     >
       {children}

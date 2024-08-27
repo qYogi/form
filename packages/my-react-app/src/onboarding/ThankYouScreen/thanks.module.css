@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  height: 37.5rem;
+  height: 35.5rem;
   width: 28.125rem;
   font-family: "Ubuntu", sans-serif;
 }
@@ -13,6 +13,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 35.5rem;
 }
 
 .elementsContainer h1 {

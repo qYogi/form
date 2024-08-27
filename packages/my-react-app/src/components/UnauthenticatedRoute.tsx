@@ -11,7 +11,7 @@ export default function UnauthenticatedRoute(props: Props): ReactElement {
   const { children } = props;
 
   if (isAuthenticated) {
-    return <Navigate to={"/"} />;
+    return <Navigate to={"/profile"} />;
   }
 
   return cloneElement(children, props);

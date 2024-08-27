@@ -7,10 +7,6 @@ declare module "sst" {
       "type": "sst.aws.ApiGatewayV2"
       "url": string
     }
-    "Form": {
-      "name": string
-      "type": "sst.aws.Dynamo"
-    }
     "Frontend": {
       "type": "sst.aws.StaticSite"
       "url": string
