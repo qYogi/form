@@ -2,8 +2,12 @@
   "name": "@form/functions",
   "version": "0.0.0",
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.637.0",
+    "@aws-sdk/lib-dynamodb": "^3.637.0",
     "@form/core": "*",
-    "sst": "*"
+    "sst": "*",
+    "uuid": "^10.0.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.137"

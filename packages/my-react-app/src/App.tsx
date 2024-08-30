@@ -3,7 +3,8 @@ import "./index.css";
 import Routes from "./Routes.tsx";
 import { AppContext, AppContextType } from "./lib/contextLib";
 import { useEffect, useState } from "react";
-import { Auth } from "aws-amplify";
+import { API, Auth } from "aws-amplify";
+
 import { PlanProvider } from "./onboarding/FormContext.tsx";
 
 function App() {
@@ -12,6 +13,10 @@ function App() {
 
   useEffect(() => {
     onLoad();
+    //  API.get('form', '/plans').then(response => console.log(response)).catch(error => console.log(error));
+    API.post("form", "/seedDb")
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
   }, []);
 
   async function onLoad() {
