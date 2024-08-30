@@ -68,12 +68,13 @@ export const SelectYourPlanForm = ({
     async function fetchPlans() {
       try {
         const response = await API.get("form", "/form");
+
         const data = await response.json();
 
         if (!data) throw new Error("No data returned");
 
         const transformedPlans = data.map((plan: any) => ({
-          id: plan.planId,
+          planId: plan.planId,
           planName: plan.planName,
           planPriceYearly: plan.planPriceYearly,
           planPriceMonthly: plan.planPriceMonthly,
