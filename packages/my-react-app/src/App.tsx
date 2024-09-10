@@ -13,10 +13,11 @@ function App() {
 
   useEffect(() => {
     onLoad();
-    //  API.get('form', '/plans').then(response => console.log(response)).catch(error => console.log(error));
-    API.post("form", "/seedDb")
+
+    API.post("form", "/seedDb", {})
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
+    console.log("Hello");
   }, []);
 
   async function onLoad() {

@@ -23,7 +23,7 @@ declare module "sst" {
       "name": string
       "type": "sst.aws.Dynamo"
     }
-    "Subscriptions": {
+    "Subscription": {
       "name": string
       "type": "sst.aws.Dynamo"
     }

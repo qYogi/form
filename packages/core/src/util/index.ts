@@ -27,6 +27,8 @@ export module Util {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Credentials": true,
           "Content-Type": "application/json",
+          "Access-Control-Allow-Headers": "*",
+          "Access-Control-Allow-Methods": "GET, OPTIONS",
         },
       };
     };

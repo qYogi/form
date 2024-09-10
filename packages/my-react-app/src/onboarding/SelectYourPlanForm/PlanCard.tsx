@@ -1,16 +1,12 @@
 import cardStyle from "./planCard.module.css";
-import { Icon, IconTypes } from "./Icon";
+import { Icon } from "./Icon";
 import React from "react";
+import { PlanType } from "./SelectYourPlanForm.tsx";
+import { usePlan } from "../FormContext.tsx";
 
 interface PlanCardProps {
-  plan: {
-    planName: string;
-    planPrice: number;
-    planIcon: IconTypes;
-    isYearly: boolean;
-    id: string;
-  };
-  handleSelectedPlan: (plan: any) => void;
+  plan: PlanType;
+  handleSelectedPlan: (plan: PlanType) => void;
   isSelected: boolean;
 }
 
@@ -22,7 +18,7 @@ export const PlanCard: React.FC<PlanCardProps> = ({
   const eventHandler = () => {
     handleSelectedPlan(plan);
   };
-
+  const { isYearly } = usePlan();
   return (
     <div
       className={`${cardStyle.cardsContainer} ${isSelected ? cardStyle.selected : ""}`}
@@ -34,10 +30,12 @@ export const PlanCard: React.FC<PlanCardProps> = ({
       <div className={cardStyle.planInfo}>
         <h3>{plan.planName}</h3>
         <p>
-          ${plan.planPrice}/{plan.isYearly ? "yr" : "mo"}
+          {isYearly
+            ? `$${plan.planPriceYearly}/yr`
+            : `$${plan.planPriceMonthly}/mo`}
         </p>
 
-        {plan.isYearly ? <h5>2 months free</h5> : null}
+        {isYearly ? <h5>2 months free</h5> : null}
       </div>
     </div>
   );

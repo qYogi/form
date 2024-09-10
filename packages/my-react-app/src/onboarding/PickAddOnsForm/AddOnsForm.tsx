@@ -1,30 +1,27 @@
 import style from "./addOns.module.css";
 import React from "react";
 import { usePlan } from "../FormContext.tsx";
+import { AddOnType } from "./PickAddOnForm.tsx";
 
 interface Props {
-  price: number;
-  title: string;
-  description: string;
+  addOn: AddOnType;
   id: string;
-  checkedBoxInfo: (id: string, isChecked: boolean) => void;
+  onToggle: (id: string) => void;
+  isChecked: boolean;
 }
 
 export const AddOnsFrom: React.FC<Props> = ({
-  price,
-  title,
-  description,
-  checkedBoxInfo,
+  addOn: {
+    addOnTitle: title,
+    addOnDescription: description,
+    addOnMonthlyPrice: monthlyPrice,
+    addOnYearlyPrice: yearlyPrice,
+  },
   id,
+  onToggle,
+  isChecked,
 }) => {
-  const { isYearly, checkedAddOns, setCheckedAddOns } = usePlan();
-  const isChecked = checkedAddOns[id] || false;
-
-  const handleCheckBox = () => {
-    const newCheckedAddOns = { ...checkedAddOns, [id]: !isChecked };
-    setCheckedAddOns(newCheckedAddOns);
-    checkedBoxInfo(id, !isChecked);
-  };
+  const { isYearly } = usePlan();
 
   return (
     <div className={`${style.checkbox} ${isChecked ? style.checked : ""}`}>
@@ -32,7 +29,7 @@ export const AddOnsFrom: React.FC<Props> = ({
         className={style.checkboxInput}
         type="checkbox"
         checked={isChecked}
-        onChange={handleCheckBox}
+        onChange={() => onToggle(id)}
       />
       <label>
         <div className={style.text}>
@@ -40,9 +37,7 @@ export const AddOnsFrom: React.FC<Props> = ({
           <p>{description}</p>
         </div>
         <div className={style.price}>
-          <p>
-            +${price}/{isYearly ? "yr" : "mo"}
-          </p>
+          <p>+{isYearly ? `$${yearlyPrice}/yr` : `$${monthlyPrice}/mo`}</p>
         </div>
       </label>
     </div>

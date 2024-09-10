@@ -1,59 +1,84 @@
 import styles from "./payment.module.css";
-
 import { usePlan } from "../FormContext.tsx";
+import { API } from "aws-amplify";
+import { useEffect } from "react";
+import { useState } from "react";
 
 interface Props {
   changePlan: () => void;
 }
 
+interface AddOnType {
+  addOnTitle: string;
+  addOnPrice: string;
+}
+
+interface SubscriptionType {
+  planName: string;
+  planPrice: string;
+  addOns: AddOnType[];
+  plan: {
+    planId: string;
+    planName: string;
+    planPriceYearly: number;
+    planPriceMonthly: number;
+    planIcon: string;
+  };
+}
+
 export const ReviewPayment = ({ changePlan }: Props) => {
-  const { isYearly, addOns, selectedPlan } = usePlan();
-  if (!selectedPlan) {
-    return <p>No plan Selected</p>;
+  const { isYearly } = usePlan();
+  const [subscriptions, setSubscriptions] = useState<SubscriptionType[]>([]);
+
+  function getSubscriptions() {
+    API.get("form", "/getSubscription", {})
+      .then((response) => {
+        const subscription: SubscriptionType = {
+          addOns: response.addOns || [],
+          plan: response.plan,
+        };
+        setSubscriptions([subscription]);
+      })
+      .catch((error) => {
+        console.error("Error fetching subscriptions:", error);
+      });
   }
 
-  const addOnsTotalPrice = Object.values(addOns).reduce(
-    (total, addOn) => total + addOn.price,
-    0,
-  );
+  useEffect(() => {
+    getSubscriptions();
+  }, []);
 
-  const totalPrice = selectedPlan.planPrice + addOnsTotalPrice;
+  const subscriptionData = subscriptions[0];
+
+  console.log(subscriptionData);
 
   return (
     <div className={styles.group}>
       <div className={styles.paymentContainer}>
         <div className={styles.planName}>
           <div className={styles.name}>
-            <h5>
-              {selectedPlan.planName} ({isYearly ? "Yearly" : "Monthly"})
-            </h5>
+            <h5>{subscriptionData.plan.planName}</h5>
             <button onClick={changePlan}>Change</button>
           </div>
           <h3>
-            ${selectedPlan.planPrice}/{isYearly ? "yr" : "mo"}
+            {isYearly
+              ? `$${subscriptionData.plan.planPriceYearly}/yr`
+              : `$${subscriptionData.plan.planPriceMonthly}/mo`}
           </h3>
         </div>
         <hr />
         <div className={styles.addOns}>
-          <div>
-            {Object.keys(addOns).map((id) => (
-              <p key={id}>{addOns[id].title}</p>
-            ))}
-          </div>
-          <div className={styles.addOnsPrice}>
-            {Object.keys(addOns).map((id) => (
-              <p key={id}>
-                ${addOns[id].price}/{isYearly ? "yr" : "mo"}
-              </p>
-            ))}
-          </div>
+          {subscriptionData.addOns.map((addOn, index) => (
+            <div key={index} className={styles.addOn}>
+              <p>{addOn.addOnTitle}</p>
+              <h3>{addOn.addOnPrice}</h3>
+            </div>
+          ))}
         </div>
       </div>
       <div className={styles.totalPrice}>
         <p>Total ({isYearly ? "per year" : "per month"})</p>
-        <h2>
-          ${totalPrice}/{isYearly ? "Yearly" : "Monthly"}
-        </h2>
+        <h2>total PRICE/{isYearly ? "yr" : "mo"}</h2>
       </div>
     </div>
   );

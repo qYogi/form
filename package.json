@@ -18,7 +18,7 @@
     "@serverless-stack/core": "^1.18.4",
     "@serverless-stack/resources": "^1.18.4",
     "aws-sdk": "^2.1684.0",
-    "sst": "3.0.74",
+    "sst": "3.0.131",
     "uuid": "^10.0.0"
   }
 }

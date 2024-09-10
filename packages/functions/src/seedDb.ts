@@ -23,24 +23,24 @@ async function seedAddons() {
   const addons = [
     {
       addOnId: "1",
-      addOnTitle: "Addon 1",
-      addOnDescription: "Addon 1 Description",
-      addOnMonthlyPrice: 10,
-      addOnYearlyPrice: 100,
+      addOnTitle: "Online Service",
+      addOnDescription: "Acces to multiple games",
+      addOnMonthlyPrice: 1,
+      addOnYearlyPrice: 10,
     },
     {
       addOnId: "2",
-      addOnTitle: "Addon 2",
-      addOnDescription: "Addon 2 Description",
-      addOnMonthlyPrice: 20,
-      addOnYearlyPrice: 200,
+      addOnTitle: "Larger storage",
+      addOnDescription: "Extra 1TB of cloud save",
+      addOnMonthlyPrice: 2,
+      addOnYearlyPrice: 20,
     },
     {
       addOnId: "3",
-      addOnTitle: "Addon 3",
-      addOnDescription: "Addon 3 Description",
-      addOnMonthlyPrice: 30,
-      addOnYearlyPrice: 300,
+      addOnTitle: "Customizable Profile",
+      addOnDescription: "Custom theme on your profile",
+      addOnMonthlyPrice: 3,
+      addOnYearlyPrice: 30,
     },
   ];
 

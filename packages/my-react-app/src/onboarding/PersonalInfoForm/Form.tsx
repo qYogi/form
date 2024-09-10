@@ -1,7 +1,6 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import formStyles from "./form.module.css";
 import btnStyles from "./button.module.css";
-import { useLocation } from "react-router-dom";
 import { usePlan } from "/Users/bogdan/WebstormProjects/Form/form/packages/my-react-app/src/onboarding/FormContext.tsx";
 import { Auth } from "aws-amplify";
 
@@ -14,7 +13,6 @@ interface FormErrors {
 export const Form: React.FC<{ onSuccessfulSubmit: () => void }> = ({
   onSuccessfulSubmit,
 }) => {
-  const location = useLocation();
   const { name, email, phone, setName, setEmail, setPhone } = usePlan();
 
   // State to manage form errors
@@ -24,18 +22,26 @@ export const Form: React.FC<{ onSuccessfulSubmit: () => void }> = ({
     phone: "",
   });
 
-  // Load initial values from localStorage or location state
   useEffect(() => {
-    const storedValues = localStorage.getItem("personalInfoFormValues");
-    if (storedValues) {
-      const parsedValues = JSON.parse(storedValues);
-      setName(parsedValues.name);
-      setEmail(parsedValues.email);
-      setPhone(parsedValues.phone);
-    } else if (location.state?.email) {
-      setEmail(location.state.email);
-    }
-  }, [location.state, setName, setEmail, setPhone]);
+    Auth.currentAuthenticatedUser().then((user) => {
+      setEmail(user.attributes.email);
+      setName(user.attributes.name);
+      setPhone(user.attributes.phone_number);
+    });
+  }, []);
+
+  // Load initial values from localStorage or location state
+  // useEffect(() => {
+  //   const storedValues = localStorage.getItem("personalInfoFormValues");
+  //   if (storedValues) {
+  //     const parsedValues = JSON.parse(storedValues);
+  //     setName(parsedValues.name);
+  //     setEmail(parsedValues.email);
+  //     setPhone(parsedValues.phone);
+  //   } else if (location.state?.email) {
+  //     setEmail(location.state.email);
+  //   }
+  // }, [location.state, setName, setEmail, setPhone]);
 
   // Validate form inputs
   const validate = () => {

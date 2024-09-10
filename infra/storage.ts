@@ -11,18 +11,22 @@
 //   primaryIndex: { hashKey: "userId" },
 // });
 
-export const subscriptionsTable = new sst.aws.Dynamo("Subscriptions", {
+export const subscriptionTable = new sst.aws.Dynamo("Subscription", {
   fields: {
     userId: "string",
     planId: "string",
     subscriptionType: "string",
     addOnIds: "string",
+    isActive: "string",
+    startedDate: "string",
   },
   primaryIndex: { hashKey: "userId" },
   globalIndexes: {
     planIdIndex: { hashKey: "planId" },
     addOnIdsIndex: { hashKey: "addOnIds" },
     subscriptionTypeIndex: { hashKey: "subscriptionType" },
+    startedDateIndex: { hashKey: "startedDate" },
+    isActiveIndex: { hashKey: "isActive" },
   },
 });
 

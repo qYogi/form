@@ -5,7 +5,7 @@
     "@aws-sdk/client-dynamodb": "^3.637.0",
     "@aws-sdk/lib-dynamodb": "^3.637.0",
     "@form/core": "*",
-    "sst": "*",
+    "sst": "3.0.131",
     "uuid": "^10.0.0",
     "zod": "^3.23.8"
   },

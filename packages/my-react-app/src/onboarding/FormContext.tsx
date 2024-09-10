@@ -11,7 +11,7 @@ type PlanName = "Arcade" | "Advanced" | "Pro";
 //   phone: string;
 // }
 
-interface Plan {
+export interface Plan {
   id: string;
   isYearly: boolean;
   planName: PlanName;
@@ -19,23 +19,11 @@ interface Plan {
   planIcon: string;
 }
 
-interface AddOn {
-  title: string;
-  description: string;
-  price: number;
-}
-
 interface PlanContextType {
   isYearly: boolean;
   selectedPlan: Plan | null;
   handleToggle: () => void;
   setSelectedPlan: (plan: Plan) => void;
-  addOns: {
-    [id: string]: AddOn;
-  };
-  setAddOns: (addOns: { [id: string]: AddOn }) => void;
-  checkedAddOns: { [id: string]: boolean };
-  setCheckedAddOns: (checkedAddOns: { [id: string]: boolean }) => void;
   name: string;
   email: string;
   phone: string;
@@ -61,14 +49,6 @@ export const PlanProvider: React.FC<{ children: ReactNode }> = ({
 
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
 
-  const [addOns, setAddOns] = useState<{
-    [id: string]: AddOn;
-  }>({});
-
-  const [checkedAddOns, setCheckedAddOns] = useState<{ [id: string]: boolean }>(
-    {},
-  );
-
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
@@ -77,48 +57,16 @@ export const PlanProvider: React.FC<{ children: ReactNode }> = ({
     setIsYearly((prev) => {
       const newIsYearly = !prev;
 
-      // Update the selected plan with the new pricing model
       if (selectedPlan) {
-        const prices = {
-          Arcade: newIsYearly ? 90 : 9,
-          Advanced: newIsYearly ? 120 : 12,
-          Pro: newIsYearly ? 150 : 15,
-        };
-
         const updatedPlan = {
           ...selectedPlan,
           isYearly: newIsYearly,
-          planPrice: prices[selectedPlan.planName as keyof typeof prices],
+          planPrice: newIsYearly
+            ? selectedPlan.planPriceYearly
+            : selectedPlan.planPriceMonthly,
         };
-
         setSelectedPlan(updatedPlan);
       }
-
-      const updatedAddOns = Object.keys(addOns).reduce(
-        (acc, id) => {
-          const addOn = addOns[id];
-          const yearlyPrices = {
-            "1": 10,
-            "2": 20,
-            "3": 20,
-          };
-          const monthlyPrices = {
-            "1": 1,
-            "2": 2,
-            "3": 2,
-          };
-
-          const newPrice = newIsYearly
-            ? yearlyPrices[id as keyof typeof yearlyPrices]
-            : monthlyPrices[id as keyof typeof monthlyPrices];
-
-          acc[id] = { ...addOn, price: newPrice };
-          return acc;
-        },
-        {} as { [id: string]: AddOn },
-      );
-
-      setAddOns(updatedAddOns);
 
       return newIsYearly;
     });
@@ -131,10 +79,6 @@ export const PlanProvider: React.FC<{ children: ReactNode }> = ({
         handleToggle,
         selectedPlan,
         setSelectedPlan,
-        addOns,
-        setAddOns,
-        checkedAddOns,
-        setCheckedAddOns,
         name,
         email,
         phone,

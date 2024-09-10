@@ -13,17 +13,10 @@ import { useAppContext } from "../lib/contextLib.ts";
 import { useNavigate } from "react-router-dom";
 
 export const Profile = () => {
-  const { name, email, phone, isYearly, selectedPlan, addOns } = usePlan();
+  const { name, email, phone, isYearly, selectedPlan } = usePlan();
   const { userHasAuthenticated } = useAppContext();
 
   const nav = useNavigate();
-
-  const addOnsTotalPrice = Object.values(addOns).reduce(
-    (total, addOn) => total + addOn.price,
-    0,
-  );
-
-  const totalPrice = (selectedPlan?.planPrice || 0) + addOnsTotalPrice;
 
   async function handleLogout() {
     await Auth.signOut();
@@ -96,24 +89,16 @@ export const Profile = () => {
                           </div>
                           <div className="selectedAddOns">
                             <h4>Selected Add-Ons</h4>
-                            {Object.keys(addOns).map((id) => {
-                              const addOn = addOns[id];
-                              return (
-                                <li key={id}>
-                                  {addOn.title} - {addOn.description}
-                                </li>
-                              );
-                            })}
                           </div>
                           <div className="summary">
                             <h4>Summary</h4>
                             <p>
-                              You have selected the {selectedPlan?.planName}{" "}
-                              {addOns && Object.keys(addOns).length > 0
-                                ? `with ${Object.keys(addOns)
-                                    .map((id) => addOns[id].title)
-                                    .join(" and ")}.`
-                                : "with no adds."}
+                              {/*You have selected the {selectedPlan?.planName}{" "}*/}
+                              {/*{addOns && Object.keys(addOns).length > 0*/}
+                              {/*  ? `with ${Object.keys(addOns)*/}
+                              {/*      .map((id) => addOns[id].title)*/}
+                              {/*      .join(" and ")}.`*/}
+                              {/*  : "with no adds."}*/}
                             </p>
                           </div>
                         </Stack>
@@ -136,7 +121,7 @@ export const Profile = () => {
                             You are currently on the{" "}
                             {isYearly ? "yearly" : "monthly"} plan.
                           </p>
-                          <p>Total Amount Due: ${totalPrice} </p>
+                          <p>Total Amount Due: </p>
                           <p>
                             Your next payment is due on{" "}
                             {new Date().toLocaleDateString()}.

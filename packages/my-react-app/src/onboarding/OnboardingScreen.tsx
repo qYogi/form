@@ -44,7 +44,6 @@ export function OnboardingScreen() {
 
   const lastStep = () => {
     setSelectedFormIndex(4);
-    localStorage.removeItem("personalInfoFormValues");
   };
 
   const goToProfile = () => {

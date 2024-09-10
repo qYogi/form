@@ -6,17 +6,17 @@ import { IconTypes } from "./Icon";
 import { usePlan } from "../FormContext.tsx";
 import { API } from "aws-amplify";
 
-interface Plan {
-  id: string;
-  planName: string;
-  planPriceYearly: number;
-  planPriceMonthly: number;
-  planIcon: IconTypes;
-}
-
 interface Props {
   goToNextStep: () => void;
   goToPreviousStep: () => void;
+}
+
+export interface PlanType {
+  planId: string;
+  planName: string;
+  planPriceYearly: number;
+  planPriceMonthly: number;
+  planIcon: string;
 }
 
 export const SelectYourPlanForm = ({
@@ -25,7 +25,7 @@ export const SelectYourPlanForm = ({
 }: Props) => {
   const { isYearly, selectedPlan, setSelectedPlan } = usePlan(); // Destructure the object returned by usePlan
   const [selectedPlanId, setSelectedPlanId] = useState<null | string>(null);
-  const [plans, setPlans] = useState<Plan[]>([]); // Initialize state to hold plans
+  const [plans, setPlans] = useState<PlanType[]>([]); // State for storing the plans
 
   useEffect(() => {
     if (selectedPlan) {
@@ -33,76 +33,64 @@ export const SelectYourPlanForm = ({
     }
   }, [selectedPlan]);
 
-  // const prices = {
-  //   Arcade: isYearly ? 90 : 9,
-  //   Advanced: isYearly ? 120 : 12,
-  //   Pro: isYearly ? 150 : 15,
-  // };
-  //
-  // const plans = [
-  //   {
-  //     id: "1",
-  //     planName: "Arcade",
-  //     planPrice: prices.Arcade,
-  //     planIcon: IconTypes.ArcadeIcon,
-  //     isYearly: isYearly,
-  //   },
-  //   {
-  //     id: "2",
-  //     planName: "Advanced",
-  //     planPrice: prices.Advanced,
-  //     planIcon: IconTypes.AdvancedIcon,
-  //     isYearly: isYearly,
-  //   },
-  //   {
-  //     id: "3",
-  //     planName: "Pro",
-  //     planPrice: prices.Pro,
-  //     planIcon: IconTypes.ProIcon,
-  //     isYearly: isYearly,
-  //   },
-  // ];
-
-  useEffect(() => {
-    // Fetch plans from the backend API
-    async function fetchPlans() {
-      try {
-        const response = await API.get("form", "/form");
-
-        const data = await response.json();
-
-        if (!data) throw new Error("No data returned");
-
-        const transformedPlans = data.map((plan: any) => ({
-          planId: plan.planId,
+  function getPlans() {
+    API.get("form", "/planObject", {})
+      .then((response) => {
+        // Process the response to match the required plan format
+        const fetchedPlans = response.map((plan: PlanType) => ({
+          id: plan.planId,
           planName: plan.planName,
           planPriceYearly: plan.planPriceYearly,
           planPriceMonthly: plan.planPriceMonthly,
-          planIcon: plan.planIcon,
+          planIcon: IconTypes[plan.planIcon as keyof typeof IconTypes],
         }));
+        setPlans(fetchedPlans);
+      })
+      .catch((error) => {
+        console.error("Error fetching plans:", error); // Log the error
+      });
+  }
 
-        setPlans(transformedPlans);
-        console.log("Fetched plans:", transformedPlans);
-      } catch (error) {
-        console.error("Failed to fetch plans:", error);
-      }
-    }
+  useEffect(() => {
+    getPlans(); // Fetch plans on component mount
+  }, []);
 
-    fetchPlans();
-  }, [isYearly]);
+  const handleSelectedPlan = (plan: PlanType) => {
+    const price = isYearly ? plan.planPriceYearly : plan.planPriceMonthly;
 
-  const handleSelectedPlan = (plan: any) => {
-    setSelectedPlanId(plan.id);
-    setSelectedPlan(plan);
-    // Update the context with the selected plan
+    setSelectedPlan({
+      id: plan.id,
+      isYearly: isYearly,
+      planName: plan.planName,
+      planPrice: price,
+      planIcon: plan.planIcon,
+      planPriceYearly: plan.planPriceYearly,
+      planPriceMonthly: plan.planPriceMonthly,
+    });
+    setSelectedPlanId(plan.planId);
+  };
+
+  const handleSubmit = async () => {
+    await API.put("form", "/updateSubscription", {
+      body: {
+        planId: selectedPlanId,
+        subscriptionType: isYearly ? "yearly" : "monthly",
+        addOnIds: JSON.stringify([]),
+        isActive: "False",
+        startedDate: "2022-01-01",
+      },
+    });
+
+    goToNextStep();
   };
 
   console.log(selectedPlan);
+
   return (
     <div className={planStyles.container}>
       <div className={planStyles.planContainer}>
         <div className={planStyles.header}>
-          <h1>{plans.planName}</h1>
+          <h1></h1>
           <h1>Select your plan</h1>
           <p>You have the option of monthly or yearly billing</p>
         </div>
@@ -123,7 +111,7 @@ export const SelectYourPlanForm = ({
           Go Back
         </button>
         {selectedPlanId ? (
-          <button className={planStyles.next} onClick={goToNextStep}>
+          <button className={planStyles.next} onClick={handleSubmit}>
             Next Step
           </button>
         ) : null}
