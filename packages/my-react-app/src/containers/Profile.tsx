@@ -1,4 +1,4 @@
-import { Nav, Navbar } from "react-bootstrap";
+import { Nav, Navbar, Button, Modal } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import "./Profile.css";
 import { usePlan } from "../onboarding/FormContext.tsx";
@@ -34,6 +34,7 @@ interface ProfileInfoType {
 }
 
 interface UserInfoType {
+  userId: string;
   name: string;
   email: string;
   phone: string;
@@ -44,12 +45,18 @@ export const Profile = () => {
   const { userHasAuthenticated } = useAppContext();
   const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
   const [profileInfo, setProfileInfo] = useState<ProfileInfoType | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleShow = () => setShowModal(true);
+  const handleClose = () => setShowModal(false);
 
   function getUserInfo() {
     //use Auth.currentAuthenticatedUser() to get the user info
     Auth.currentAuthenticatedUser()
       .then((user) => {
         const userInfo: UserInfoType = {
+          userId: user.attributes.sub,
           name: user.attributes.name,
           email: user.attributes.email,
           phone: user.attributes.phone_number,
@@ -76,7 +83,18 @@ export const Profile = () => {
       });
   }
 
+  const fetchUserId = async () => {
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      setUserId(user.attributes.sub);
+      console.log(userId);
+    } catch (error) {
+      console.error("Error fetching user ID:", error);
+    }
+  };
+
   useEffect(() => {
+    fetchUserId();
     getUserInfo();
     getProfileInfo();
   }, []);
@@ -107,6 +125,28 @@ export const Profile = () => {
           ? profileInfo?.plan?.planPriceYearly
           : profileInfo?.plan?.planPriceMonthly) + addOnsTotalPrice
       : 0;
+
+  async function handleCancelSubscription() {
+    try {
+      const data = {
+        planId: "not-selected",
+        subscriptionType: "not-selected",
+        addOnIds: JSON.stringify([]),
+        isActive: "false",
+        startedDate: "not-started",
+      };
+      const response = await API.put("form", `/updateSubscription/${userId}`, {
+        body: data,
+      });
+      console.log("Update successful:", response);
+    } catch (error) {
+      console.error("Error updating subscription:", error);
+    } finally {
+      nav("/form");
+    }
+    handleClose();
+  }
+
   return (
     <PlanProvider>
       <div className="profile-page">
@@ -268,6 +308,29 @@ export const Profile = () => {
                             <p>Start date is unavailable</p>
                           )}
                         </div>
+                        <button className="cancel" onClick={handleShow}>
+                          Cancel Subscription
+                        </button>
+
+                        <Modal show={showModal} onHide={handleClose}>
+                          <Modal.Header closeButton>
+                            <Modal.Title>Confirm Cancellation</Modal.Title>
+                          </Modal.Header>
+                          <Modal.Body>
+                            Are you sure you want to cancel your subscription?
+                          </Modal.Body>
+                          <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                              Close
+                            </Button>
+                            <Button
+                              variant="danger"
+                              onClick={handleCancelSubscription}
+                            >
+                              Confirm
+                            </Button>
+                          </Modal.Footer>
+                        </Modal>
                       </Stack>
                     </Tab.Pane>
                   </Tab.Content>
