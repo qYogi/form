@@ -27,6 +27,7 @@ interface SubscriptionType {
   plan: {
     planId: string;
     planName: string;
+    planPrice: number;
     planPriceYearly: number;
     planPriceMonthly: number;
     planIcon: string;
@@ -38,6 +39,7 @@ export const PickAddOnForm = ({ goToNextStep, goToPreviousStep }: Props) => {
   const [addOns, setAddOns] = useState<AddOnType[]>([]);
   const [subscription, setSubscription] = useState<SubscriptionType[]>([]);
   const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]); // Manage selected add-ons
+  const [loading, setLoading] = useState<boolean>(false);
 
   // console.log(checkedAddOns);
 
@@ -71,6 +73,7 @@ export const PickAddOnForm = ({ goToNextStep, goToPreviousStep }: Props) => {
           addOns: response.addOns || [],
         };
         setSubscription([subscription]);
+        console.log("Subscription:", subscription);
       })
       .catch((error) => {
         console.error("Error fetching subscription:", error);
@@ -96,6 +99,8 @@ export const PickAddOnForm = ({ goToNextStep, goToPreviousStep }: Props) => {
 
     if (!subscriptionData) return;
 
+    setLoading(true);
+
     const updatedSubscription = {
       planId: subscriptionData.planId,
       subscriptionType: subscriptionData.subscriptionType,
@@ -113,6 +118,8 @@ export const PickAddOnForm = ({ goToNextStep, goToPreviousStep }: Props) => {
       goToNextStep();
     } catch (error) {
       console.error("Error updating subscription:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -139,8 +146,13 @@ export const PickAddOnForm = ({ goToNextStep, goToPreviousStep }: Props) => {
         <button className={style.back} onClick={goToPreviousStep}>
           Go Back
         </button>
-        <button className={style.next} type="submit" onClick={handleSubmit}>
-          Next Step
+        <button
+          disabled={loading}
+          className={style.next}
+          type="submit"
+          onClick={handleSubmit}
+        >
+          {loading ? "Loading..." : "Next"}
         </button>
       </div>
     </div>

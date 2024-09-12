@@ -11,11 +11,11 @@ interface Props {
 interface AddOnType {
   addOnTitle: string;
   addOnPrice: string;
+  addOnMonthlyPrice: string;
+  addOnYearlyPrice: string;
 }
 
 interface SubscriptionType {
-  planName: string;
-  planPrice: string;
   addOns: AddOnType[];
   plan: {
     planId: string;
@@ -48,37 +48,61 @@ export const ReviewPayment = ({ changePlan }: Props) => {
     getSubscriptions();
   }, []);
 
-  const subscriptionData = subscriptions[0];
+  const subscriptionData = subscriptions.length > 0 ? subscriptions[0] : null;
 
   console.log(subscriptionData);
+
+  const addOnsTotalPrice =
+    subscriptionData?.addOns.reduce(
+      (total, addOn) =>
+        total +
+        (isYearly
+          ? parseInt(addOn.addOnYearlyPrice)
+          : parseInt(addOn.addOnMonthlyPrice)),
+      0,
+    ) || 0;
+
+  const totalPrice =
+    subscriptionData && subscriptionData.plan
+      ? (isYearly
+          ? subscriptionData?.plan?.planPriceYearly
+          : subscriptionData?.plan?.planPriceMonthly) + addOnsTotalPrice
+      : 0;
 
   return (
     <div className={styles.group}>
       <div className={styles.paymentContainer}>
         <div className={styles.planName}>
           <div className={styles.name}>
-            <h5>{subscriptionData.plan.planName}</h5>
+            <h5>{subscriptionData?.plan?.planName || "Loading"}</h5>
             <button onClick={changePlan}>Change</button>
           </div>
           <h3>
             {isYearly
-              ? `$${subscriptionData.plan.planPriceYearly}/yr`
-              : `$${subscriptionData.plan.planPriceMonthly}/mo`}
+              ? `$${subscriptionData?.plan?.planPriceYearly}/yr`
+              : `$${subscriptionData?.plan?.planPriceMonthly}/mo` || "Loading"}
           </h3>
         </div>
         <hr />
         <div className={styles.addOns}>
-          {subscriptionData.addOns.map((addOn, index) => (
-            <div key={index} className={styles.addOn}>
-              <p>{addOn.addOnTitle}</p>
-              <h3>{addOn.addOnPrice}</h3>
-            </div>
-          ))}
+          <div>
+            {subscriptionData?.addOns.map((addOn) => (
+              <p key={addOn.addOnTitle}>{addOn.addOnTitle}</p>
+            ))}
+          </div>
+          <div className={styles.addOnsPrice}>
+            {subscriptionData?.addOns.map((addOn) => (
+              <p key={addOn.addOnTitle}>
+                ${isYearly ? addOn.addOnYearlyPrice : addOn.addOnMonthlyPrice}/
+                {isYearly ? "yr" : "mo"}
+              </p>
+            ))}
+          </div>
         </div>
       </div>
       <div className={styles.totalPrice}>
         <p>Total ({isYearly ? "per year" : "per month"})</p>
-        <h2>total PRICE/{isYearly ? "yr" : "mo"}</h2>
+        <h2>${totalPrice}</h2>
       </div>
     </div>
   );

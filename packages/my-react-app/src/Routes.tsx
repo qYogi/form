@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation, Navigate } from "react-router-dom";
 import { OnboardingScreen } from "./onboarding";
 import NotFound from "./containers/NotFound.tsx";
 import Login from "./containers/Login.tsx";
@@ -7,8 +7,10 @@ import Signup from "./containers/Signup.tsx";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute.tsx";
 import AuthenticatedRoute from "./components/AuthenticatedRoute.tsx";
 export default function Pages() {
+  const location = useLocation();
   return (
-    <Routes>
+    <Routes key={location.pathname}>
+      <Route path="/" element={<Navigate to="/login" replace />} />
       <Route
         path="/login"
         element={
@@ -26,7 +28,7 @@ export default function Pages() {
         }
       />
       <Route
-        path="/Form"
+        path="/form"
         element={
           <AuthenticatedRoute>
             <OnboardingScreen />
@@ -34,7 +36,7 @@ export default function Pages() {
         }
       />
       <Route
-        path="/profile"
+        path="/dashboard"
         element={
           <AuthenticatedRoute>
             <Profile />

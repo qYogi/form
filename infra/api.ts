@@ -21,7 +21,15 @@ api.route(
   "packages/functions/src/updateSubscription.main",
 );
 api.route(
+  "PUT /updateSubscription/{userId}",
+  "packages/functions/src/updateSubscription.main",
+);
+api.route(
   "GET /getSubscription",
+  "packages/functions/src/getSubscription.main",
+);
+api.route(
+  "GET /getSubscription/{userId}",
   "packages/functions/src/getSubscription.main",
 );
 api.route("GET /addOnsObject", "packages/functions/src/getAddOns.main");

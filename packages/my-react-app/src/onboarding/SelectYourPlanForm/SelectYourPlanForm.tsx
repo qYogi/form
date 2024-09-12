@@ -4,7 +4,7 @@ import { PlanButton } from "./PlanButton.tsx";
 import planStyles from "./plan.module.css";
 import { IconTypes } from "./Icon";
 import { usePlan } from "../FormContext.tsx";
-import { API } from "aws-amplify";
+import { API, Auth } from "aws-amplify";
 
 interface Props {
   goToNextStep: () => void;
@@ -13,23 +13,40 @@ interface Props {
 
 export interface PlanType {
   planId: string;
-  planName: string;
+  planName: "Arcade" | "Advanced" | "Pro";
   planPriceYearly: number;
   planPriceMonthly: number;
-  planIcon: string;
+  planIcon: IconTypes;
+  isYearly: boolean;
 }
 
 export const SelectYourPlanForm = ({
   goToNextStep,
   goToPreviousStep,
 }: Props) => {
-  const { isYearly, selectedPlan, setSelectedPlan } = usePlan(); // Destructure the object returned by usePlan
+  const { isYearly } = usePlan(); // Destructure the object returned by usePlan
+  const [selectedPlan, setSelectedPlan] = useState<PlanType | null>(null);
   const [selectedPlanId, setSelectedPlanId] = useState<null | string>(null);
-  const [plans, setPlans] = useState<PlanType[]>([]); // State for storing the plans
+  const [plans, setPlans] = useState<PlanType[]>([]);
+  const [selected, setSelected] = useState<boolean>(true);
+  const [userId, setUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      try {
+        const user = await Auth.currentAuthenticatedUser();
+        setUserId(user.attributes.sub);
+      } catch (error) {
+        console.error("Error fetching user ID:", error);
+      }
+    };
+
+    fetchUserId();
+  }, []);
 
   useEffect(() => {
     if (selectedPlan) {
-      setSelectedPlanId(selectedPlan.id);
+      setSelectedPlanId(selectedPlan.planId);
     }
   }, [selectedPlan]);
 
@@ -38,11 +55,11 @@ export const SelectYourPlanForm = ({
       .then((response) => {
         // Process the response to match the required plan format
         const fetchedPlans = response.map((plan: PlanType) => ({
-          id: plan.planId,
+          planId: plan.planId,
           planName: plan.planName,
           planPriceYearly: plan.planPriceYearly,
           planPriceMonthly: plan.planPriceMonthly,
-          planIcon: IconTypes[plan.planIcon as keyof typeof IconTypes],
+          planIcon: plan.planIcon as keyof typeof IconTypes,
         }));
         setPlans(fetchedPlans);
       })
@@ -56,32 +73,53 @@ export const SelectYourPlanForm = ({
   }, []);
 
   const handleSelectedPlan = (plan: PlanType) => {
-    const price = isYearly ? plan.planPriceYearly : plan.planPriceMonthly;
-
     setSelectedPlan({
-      id: plan.id,
-      isYearly: isYearly,
+      planId: plan.planId,
+      isYearly,
       planName: plan.planName,
-      planPrice: price,
       planIcon: plan.planIcon,
       planPriceYearly: plan.planPriceYearly,
       planPriceMonthly: plan.planPriceMonthly,
     });
     setSelectedPlanId(plan.planId);
+    setSelected(false);
   };
 
-  const handleSubmit = async () => {
-    await API.put("form", "/updateSubscription", {
-      body: {
-        planId: selectedPlanId,
-        subscriptionType: isYearly ? "yearly" : "monthly",
-        addOnIds: JSON.stringify([]),
-        isActive: "False",
-        startedDate: "2022-01-01",
-      },
-    });
+  useEffect(() => {
+    if (selectedPlan) {
+      setSelectedPlan((prevPlan) =>
+        prevPlan
+          ? {
+              ...prevPlan,
+              isYearly,
+            }
+          : null,
+      );
+    }
+  }, [isYearly]);
 
-    goToNextStep();
+  const handleSubmit = async () => {
+    setSelected(true);
+    try {
+      const currentSubscriptionItems = await API.get(
+        "form",
+        `/getSubscription/${userId}`,
+        {},
+      );
+
+      const data = {
+        ...currentSubscriptionItems,
+        planId: selectedPlanId,
+      };
+
+      const response = await API.put("form", `/updateSubscription/${userId}`, {
+        body: data,
+      });
+      console.log("Update successful:", response);
+      goToNextStep();
+    } catch (error) {
+      console.error("Error updating subscription:", error);
+    }
   };
 
   console.log(selectedPlan);
@@ -98,9 +136,9 @@ export const SelectYourPlanForm = ({
           {plans.map((plan) => (
             <PlanCard
               plan={plan}
-              key={plan.id}
+              key={plan.planId}
               handleSelectedPlan={handleSelectedPlan}
-              isSelected={selectedPlanId === plan.id}
+              isSelected={selectedPlanId === plan.planId}
             />
           ))}
         </div>
@@ -110,11 +148,14 @@ export const SelectYourPlanForm = ({
         <button className={planStyles.back} onClick={goToPreviousStep}>
           Go Back
         </button>
-        {selectedPlanId ? (
-          <button className={planStyles.next} onClick={handleSubmit}>
-            Next Step
-          </button>
-        ) : null}
+        <button
+          className={planStyles.next}
+          onClick={handleSubmit}
+          disabled={selected}
+          style={{ opacity: selected ? 0.5 : 1 }}
+        >
+          {selected ? "Next Step" : "Next Step"} {/* Change button text */}
+        </button>
       </div>
     </div>
   );

@@ -9,11 +9,11 @@ export async function main(event: APIGatewayProxyEvent) {
   try {
     console.log("Received event:", JSON.stringify(event, null, 2));
 
-    const { planId, subscriptionType, addOnIds, isActive, startedDate } =
-      JSON.parse(event.body || "{}");
-
     const userId =
       event.requestContext.authorizer?.iam.cognitoIdentity.identityId;
+
+    const { planId, subscriptionType, addOnIds, isActive, startedDate } =
+      JSON.parse(event.body || "{}");
 
     //update command for specific fiekds
     const result = await dynamoDb.send(
@@ -29,7 +29,7 @@ export async function main(event: APIGatewayProxyEvent) {
           ":startedDate": startedDate,
           ":isActive": isActive,
         },
-        returnValues: "ALL_NEW",
+        ReturnValues: "ALL_NEW",
       }),
     );
 

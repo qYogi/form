@@ -18,7 +18,7 @@ export const ThanksComponent = ({ goToProfile }: Props) => (
       </p>
     </div>
     <button className={planStyles.next} onClick={goToProfile}>
-      View Profile
+      Dashboard
     </button>
   </>
 );

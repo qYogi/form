@@ -1,4 +1,4 @@
-export const ProfileImage = () => {
+export const ArcadeIcon = () => {
   return (
     <svg
       width="40"

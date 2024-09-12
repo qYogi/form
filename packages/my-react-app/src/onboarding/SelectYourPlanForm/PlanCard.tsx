@@ -15,14 +15,11 @@ export const PlanCard: React.FC<PlanCardProps> = ({
   handleSelectedPlan,
   isSelected = false,
 }) => {
-  const eventHandler = () => {
-    handleSelectedPlan(plan);
-  };
   const { isYearly } = usePlan();
   return (
     <div
       className={`${cardStyle.cardsContainer} ${isSelected ? cardStyle.selected : ""}`}
-      onClick={eventHandler}
+      onClick={() => handleSelectedPlan(plan)}
     >
       <div className={cardStyle.icon}>
         <Icon iconType={plan.planIcon} />

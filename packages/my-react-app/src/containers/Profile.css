@@ -36,21 +36,32 @@
   align-content: center;
   height: 5rem;
   width: 100%;
-  background-color: var(--white);
+  background-color: var(--whiteGray);
   box-shadow: 0 6px 13px rgba(0, 0, 0, 0.1);
   font-size: 1.7rem;
   font-weight: 600;
+  border-radius: 0.5rem;
+}
+
+.nav-panel {
+  background-color: var(--denim);
+  border-radius: 0.5rem;
+  border: 2px dashed var(--lighterPurple);
+}
+
+.nav-panel-content {
+  margin-top: 1.5rem;
 }
 
 .content {
   display: flex;
-  background-color: var(--BG);
+  background-color: var(--white);
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
 
 .nav-item .nav-link {
-  color: var(--pruple) !important;
+  color: var(--white) !important;
 }
 
 .nav-pills .nav-link.active {
@@ -60,11 +71,24 @@
 .profile {
   display: flex;
   height: 100%;
-  border: 1px dashed var(--denim);
+  flex-grow: 1;
   border-radius: 8px;
 }
 
 .tabTitle h2 {
+}
+
+.info-panel {
+  background-color: var(--lighterPurple);
+  border-radius: 0.5rem;
+  margin-left: 3rem;
+  border: 2px dashed var(--denim);
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+.tab-content {
+  margin-top: 1.5rem;
 }
 
 .planName h3 {
@@ -107,6 +131,7 @@
 
 .billingInfo {
   margin-left: 1.5rem;
+  width: 100%;
 }
 
 .billingInfo h4 {

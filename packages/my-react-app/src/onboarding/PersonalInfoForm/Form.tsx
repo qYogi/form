@@ -22,28 +22,16 @@ export const Form: React.FC<{ onSuccessfulSubmit: () => void }> = ({
     phone: "",
   });
 
+  const [loading, setLoading] = useState<boolean>(false);
+
   useEffect(() => {
     Auth.currentAuthenticatedUser().then((user) => {
       setEmail(user.attributes.email);
-      setName(user.attributes.name);
-      setPhone(user.attributes.phone_number);
+      setName(user.attributes.name || "");
+      setPhone(user.attributes.phone_number || "");
     });
   }, []);
 
-  // Load initial values from localStorage or location state
-  // useEffect(() => {
-  //   const storedValues = localStorage.getItem("personalInfoFormValues");
-  //   if (storedValues) {
-  //     const parsedValues = JSON.parse(storedValues);
-  //     setName(parsedValues.name);
-  //     setEmail(parsedValues.email);
-  //     setPhone(parsedValues.phone);
-  //   } else if (location.state?.email) {
-  //     setEmail(location.state.email);
-  //   }
-  // }, [location.state, setName, setEmail, setPhone]);
-
-  // Validate form inputs
   const validate = () => {
     const tempErrors: FormErrors = { name: "", email: "", phone: "" };
     if (!name) tempErrors.name = "Name is required";
@@ -92,6 +80,7 @@ export const Form: React.FC<{ onSuccessfulSubmit: () => void }> = ({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validate()) {
+      setLoading(true);
       const formattedPhoneNumber = formatPhoneNumber(phone);
 
       try {
@@ -100,11 +89,12 @@ export const Form: React.FC<{ onSuccessfulSubmit: () => void }> = ({
           phone_number: formattedPhoneNumber,
           name: name,
         });
+        onSuccessfulSubmit();
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
-
-      onSuccessfulSubmit();
     } else {
       console.error("Validation errors:", errors);
     }
@@ -162,8 +152,8 @@ export const Form: React.FC<{ onSuccessfulSubmit: () => void }> = ({
         </div>
 
         <div className={btnStyles.buttonCnt}>
-          <button className={btnStyles.button} type="submit">
-            Next Step
+          <button className={btnStyles.button} type="submit" disabled={loading}>
+            {loading ? "Submitting..." : "Next Step"} {/* Change button text */}
           </button>
         </div>
       </form>

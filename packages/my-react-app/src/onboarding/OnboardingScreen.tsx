@@ -8,7 +8,7 @@ import { Panel } from "./Panel";
 import { PlanProvider } from "./FormContext.tsx";
 import { ThankYouScreen } from "./ThankYouScreen/ThankYouScreen.tsx";
 import UseWindowWidth from "./Panel/UseWindowWidth.tsx";
-import { Profile } from "/Users/bogdan/WebstormProjects/Form/form/packages/my-react-app/src/containers/Profile.tsx";
+import { useNavigate } from "react-router-dom";
 
 export function OnboardingScreen() {
   const windowWidth = UseWindowWidth();
@@ -18,6 +18,7 @@ export function OnboardingScreen() {
       : { marginRight: "6.5rem", display: "flex", alignSelf: "center" };
 
   const [selectedFormIndexState, setSelectedFormIndex] = useState(0);
+  const nav = useNavigate();
 
   const forms = [
     PersonalInfoForm,
@@ -25,7 +26,6 @@ export function OnboardingScreen() {
     PickAddOnForm,
     ConfirmPaymentForm,
     ThankYouScreen,
-    Profile,
   ];
 
   const CurrentForm = forms[selectedFormIndexState];
@@ -47,27 +47,23 @@ export function OnboardingScreen() {
   };
 
   const goToProfile = () => {
-    setSelectedFormIndex(5);
+    nav("/dashboard");
   };
 
   return (
     <PlanProvider>
-      {selectedFormIndexState === 5 ? (
-        <Profile />
-      ) : (
-        <Layout>
-          <Panel currentStep={selectedFormIndexState} />
-          <div style={dynamicStyle}>
-            <CurrentForm
-              goToPreviousStep={goToPreviousStep}
-              goToNextStep={goToNextStep}
-              changePlan={changePlan}
-              lastStep={lastStep}
-              {...(selectedFormIndexState === 4 && { goToProfile })}
-            />
-          </div>
-        </Layout>
-      )}
+      <Layout>
+        <Panel currentStep={selectedFormIndexState} />
+        <div style={dynamicStyle}>
+          <CurrentForm
+            goToPreviousStep={goToPreviousStep}
+            goToNextStep={goToNextStep}
+            changePlan={changePlan}
+            lastStep={lastStep}
+            {...(selectedFormIndexState === 4 && { goToProfile })}
+          />
+        </div>
+      </Layout>
     </PlanProvider>
   );
 }

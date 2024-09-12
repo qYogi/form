@@ -7,7 +7,7 @@ import { useAppContext } from "../lib/contextLib";
 import LoaderButton from "../components/LoaderButton";
 import "./Signup.css";
 import { Col, Row } from "react-bootstrap";
-import { Auth } from "aws-amplify";
+import { API, Auth } from "aws-amplify";
 import { onError } from "../lib/errorLib";
 import { ISignUpResult } from "amazon-cognito-identity-js";
 
@@ -22,6 +22,37 @@ export default function Signup() {
   const { userHasAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
   const [newUser, setNewUser] = useState<null | ISignUpResult>(null);
+  const [userId, setUserId] = useState<string | null>(null);
+
+  const fetchUserId = async () => {
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      setUserId(user.attributes.sub);
+      console.log(userId);
+    } catch (error) {
+      console.error("Error fetching user ID:", error);
+    }
+  };
+
+  const updateSubscription = async () => {
+    try {
+      const data = {
+        planId: "not-selected",
+        subscriptionType: "not-selected",
+        addOnIds: JSON.stringify([]),
+        isActive: "false",
+        startedDate: "not-started",
+      };
+
+      const response = await API.put("form", `/updateSubscription/${userId}`, {
+        body: data,
+      });
+
+      console.log("Update succsefull:", response);
+    } catch (error) {
+      console.error("Error updating subscription:", error);
+    }
+  };
 
   function validateForm() {
     return (
@@ -59,6 +90,8 @@ export default function Signup() {
     try {
       await Auth.confirmSignUp(fields.email, fields.confirmationCode);
       await Auth.signIn(fields.email, fields.password);
+      fetchUserId();
+      await updateSubscription();
       userHasAuthenticated(true);
       nav("/form", { state: { email: fields.email } });
     } catch (e) {

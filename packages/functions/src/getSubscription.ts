@@ -75,7 +75,8 @@ export async function main(
         }),
       );
 
-      const addOn = addOnQueryResponse.Items[0];
+      const addOnItems = addOnQueryResponse.Items || [];
+      const addOn = addOnItems[0];
       userAddons.push(addOn);
     }
 
