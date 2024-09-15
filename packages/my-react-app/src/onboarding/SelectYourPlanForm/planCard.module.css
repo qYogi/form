@@ -1,0 +1,67 @@
+.cardsContainer {
+  border: 1px solid var(--lightGray);
+  border-radius: 8px;
+  /* transform the px in rem */
+  width: 8.625rem;
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.card.selected {
+  border: solid var(--pruple);
+}
+
+.icon {
+  margin-bottom: 2rem;
+  margin-top: 1.1rem;
+  margin-left: 1.1rem;
+}
+
+.cardsContainer h3 {
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--denim);
+  width: 3.125rem;
+  height: 1.125rem;
+  margin-bottom: 0;
+  margin-left: 1.1rem;
+}
+
+.cardsContainer p {
+  font-size: 0.875rem;
+  color: #9699aa;
+  width: 2.625rem;
+  height: 1.125rem;
+  margin-top: 0;
+  margin-left: 1.1rem;
+  margin-bottom: 0;
+}
+
+.cardsContainer h5 {
+  font-weight: 300;
+  font-size: 0.8rem;
+  margin-top: 0.45rem;
+  margin-left: 1.1rem;
+}
+
+.selected {
+  border: 1px solid var(--pruple);
+  box-shadow:
+    inset 0 0 0 1px,
+    0 0 10px rgba(72, 62, 255, 0.6);
+  background-color: var(--whiteGray);
+}
+
+@media (max-width: 768px) {
+  .cardsContainer {
+    width: 18.438rem;
+    height: 4.813rem;
+    margin-bottom: 0.75rem;
+    display: flex;
+    flex-direction: row;
+  }
+  .planInfo h3 {
+  }
+}

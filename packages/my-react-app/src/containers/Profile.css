@@ -1,0 +1,166 @@
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 90vh;
+  width: 65vw;
+  padding: 0;
+  border-radius: 8px;
+  font-family: "Ubuntu", sans-serif;
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.15);
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  background-color: var(--denim) !important;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.nav-link {
+  color: var(--white) !important;
+}
+
+.navbar-brand {
+  color: var(--white) !important;
+  font-size: 1.4rem !important;
+  font-weight: 500 !important;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  height: 5rem;
+  width: 100%;
+  background-color: var(--whiteGray);
+  box-shadow: 0 6px 13px rgba(0, 0, 0, 0.1);
+  font-size: 1.7rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+}
+
+.nav-panel {
+  background-color: var(--denim);
+  border-radius: 0.5rem;
+  border: 2px dashed var(--lighterPurple);
+}
+
+.nav-panel-content {
+  margin-top: 1.5rem;
+}
+
+.content {
+  display: flex;
+  background-color: var(--white);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.nav-item .nav-link {
+  color: var(--white) !important;
+}
+
+.nav-pills .nav-link.active {
+  background-color: var(--lighterPurple);
+}
+
+.profile {
+  display: flex;
+  height: 100%;
+  flex-grow: 1;
+  border-radius: 8px;
+}
+
+.tabTitle h2 {
+}
+
+.info-panel {
+  background-color: var(--lighterPurple);
+  border-radius: 0.5rem;
+  margin-left: 3rem;
+  border: 2px dashed var(--denim);
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+.tab-content {
+  margin-top: 1.5rem;
+}
+
+.planName h3 {
+  font-weight: 400;
+  margin-left: 1.5rem;
+}
+
+.planDescription p {
+  font-weight: 300;
+  margin-left: 2.5rem;
+}
+
+.selectedAddOns {
+  margin-left: 1.5rem;
+}
+
+.selectedAddOns h4 {
+  font-weight: 400;
+}
+
+.selectedAddOns li {
+  list-style-type: circle;
+  margin-left: 1rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+
+.summary {
+  margin-left: 1.5rem;
+}
+
+.summary h4 {
+  font-weight: 400;
+}
+
+.summary p {
+  font-weight: 300;
+  margin-left: 1rem;
+}
+
+.billingInfo {
+  margin-left: 1.5rem;
+  width: 100%;
+}
+
+.billingInfo h4 {
+  font-weight: 400;
+}
+
+.billingInfo p {
+  font-weight: 300;
+  margin-left: 1rem;
+}
+
+.billingSummary {
+  margin-left: 1.5rem;
+}
+
+.billingSummary h4 {
+  font-weight: 400;
+}
+
+.billingSummary p {
+  font-weight: 300;
+  margin-left: 1rem;
+}
+
+.cancel {
+  align-self: flex-start;
+  background: none;
+  width: 15rem;
+  height: 1rem;
+  text-decoration: underline;
+  color: #0a53be;
+}

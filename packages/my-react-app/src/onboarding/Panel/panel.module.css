@@ -1,0 +1,35 @@
+.panel {
+  font-family: "Ubuntu", sans-serif;
+  background-image: url("/Users/bogdan/WebstormProjects/Form/form/packages/my-react-app/public/svgs/Oval.svg");
+  width: 17.125em;
+  height: 35.5rem;
+  border-radius: 10px;
+  align-self: center;
+  margin-left: 1.3rem;
+}
+
+.stepList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  margin-left: 1.5rem;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .panel {
+    display: flex;
+    width: 23.483rem;
+    height: 10.75rem;
+    justify-content: center;
+    margin-left: 0;
+    background-image: url("/Users/bogdan/WebstormProjects/multi-step-form/my-react-app/src/onboarding/Panel/panel.svg");
+  }
+  .stepList {
+    flex-direction: row;
+    width: 11.25rem;
+    height: 2.063rem;
+    margin: 2rem 0 0 0;
+  }
+}

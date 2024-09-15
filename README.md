@@ -16,7 +16,7 @@ A template to create a monorepo SST ❍ Ion project.
 3. Rename the files in the project to the name of your app. 
 
    ```bash
-   npx replace-in-file /monorepo-template/g MY_APP **/*.* --verbose
+   npx replace-in-file /form/g MY_APP **/*.* --verbose
    ```
 
 4. Deploy!
@@ -61,14 +61,14 @@ This template uses [npm Workspaces](https://docs.npmjs.com/cli/v8/using-npm/work
     This is for any scripts that you can run on your SST app using the `sst shell` CLI and [`tsx`](https://www.npmjs.com/package/tsx). For example, you can run the example script using:
 
    ```bash
-   npm run shell src/example.ts
+   npm run shell src/example.js
    ```
 
 ### Infrastructure
 
 The `infra/` directory allows you to logically split the infrastructure of your app into separate files. This can be helpful as your app grows.
 
-In the template, we have an `api.ts`, and `storage.ts`. These export the created resources. And are imported in the `sst.config.ts`.
+In the template, we have an `tablePUT.ts`, and `storage.ts`. These export the created resources. And are imported in the `sst.config.ts`.
 
 ---
 

@@ -1,0 +1,204 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: normal;
+  font-family: "Ubuntu", sans-serif;
+  box-sizing: border-box;
+  width: 28.125rem;
+  height: 35.25rem;
+  justify-content: space-between;
+}
+
+.header h1 {
+  font-size: 2.05rem;
+  font-weight: bold;
+  color: var(--denim);
+  margin-bottom: 0.6875rem;
+}
+
+.header p {
+  margin: 0;
+  color: var(--gray);
+  font-size: 16px;
+  font-weight: lighter;
+}
+
+.cards {
+  display: flex;
+  justify-content: space-between;
+  width: 28.125rem;
+  height: 10rem;
+  margin-top: 2rem;
+}
+
+/* The switch - the box around the slider */
+.toggleContainer {
+  margin-top: 2rem;
+  background-color: #f8f9ff;
+  width: 28.125rem;
+  height: 3rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 0.5rem;
+}
+
+.switch {
+  align-self: center;
+  position: relative;
+  display: inline-block;
+  width: 2.375rem;
+  height: 1.25rem;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--denim);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 13px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: var(--denim);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--denim);
+}
+
+input:checked + .slider:before {
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.plans {
+  display: flex;
+  justify-content: space-between;
+  width: 11.4375rem;
+  height: 1.3125rem;
+}
+
+.plans p {
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 28.125rem;
+}
+
+.back {
+  color: var(--denim);
+  border: none;
+  background: none;
+  font-size: 1rem;
+}
+
+.next {
+  border: none;
+  width: 7.688rem;
+  height: 3rem;
+  border-radius: 8px;
+  background: var(--denim);
+  color: var(--white);
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 21.438rem;
+    height: 33.25rem;
+    margin-top: 9.75rem;
+    background-color: var(--white);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .header {
+    width: 18.438rem;
+    height: 5.438rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.375rem;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .header p {
+    font-size: 1rem;
+  }
+
+  .planContainer {
+    height: 38.25rem;
+    width: 21.438rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .cards {
+    flex-direction: column;
+    height: 16rem;
+    width: 18.438rem;
+    margin-top: 1rem;
+  }
+
+  .toggleContainer {
+    width: 18.438rem;
+    margin-top: 2.5rem;
+  }
+
+  .buttons {
+    background-color: var(--white);
+    position: fixed;
+    bottom: 0;
+    width: 24.438rem;
+    height: 4.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+  }
+}

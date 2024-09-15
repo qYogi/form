@@ -1,0 +1,256 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: "Ubuntu", sans-serif;
+  height: 35.25rem;
+}
+
+.header {
+  margin-bottom: 2.5rem;
+}
+
+.header h1 {
+  font-size: 2.05rem;
+  font-weight: bold;
+  color: var(--denim);
+  margin-bottom: 0.6875rem;
+}
+
+.header p {
+  margin: 0;
+  color: var(--gray);
+  font-size: 16px;
+  font-weight: lighter;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 28.125rem;
+  height: 14.25rem;
+  font-style: inherit;
+}
+
+.group hr {
+  border: 0;
+  background: var(--gray);
+  border-radius: 15px;
+  height: 1px;
+  width: 25.125rem;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 1.5rem;
+}
+
+.paymentContainer {
+  background-color: var(--whiteGray);
+  width: 28.125rem;
+  height: 12.75rem;
+  border-radius: 10px;
+}
+
+.planName {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.planName button {
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--gray);
+  font-size: 0.8rem;
+  font-weight: lighter;
+  height: 1rem;
+  margin-bottom: 1rem;
+  margin-left: 1.5rem;
+  padding: 0;
+  width: 3rem;
+}
+
+.planName .name {
+  margin-top: 1rem;
+}
+
+.planName h3 {
+  margin-right: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.planName h5 {
+  font-size: 1rem;
+  font-weight: 420;
+  color: var(--denim);
+  margin-bottom: 0;
+  margin-left: 1.5rem;
+}
+
+.planName p {
+  margin-bottom: 1.5rem;
+  color: var(--gray);
+  font-size: 0.8rem;
+  font-weight: lighter;
+  margin-left: 1.5rem;
+}
+
+.addOns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: var(--gray);
+  font-size: 0.8rem;
+  font-weight: lighter;
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.addOnsPrice {
+  margin-right: 1.5rem;
+}
+
+.totalPrice {
+  width: 25.125rem;
+  height: 1.375rem;
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 1.5rem;
+  margin-left: 1.5rem;
+}
+
+.totalPrice p {
+  margin-bottom: 1.5rem;
+  color: var(--gray);
+  font-size: 0.8rem;
+  font-weight: lighter;
+}
+
+.totalPrice h2 {
+  font-size: 1.5rem;
+  margin-top: 0;
+  color: var(--pruple);
+  text-shadow: 0 0 8px rgba(72, 62, 255, 0.25);
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 28.125rem;
+  position: absolute;
+  bottom: 8.5rem;
+}
+
+.back {
+  cursor: pointer;
+  color: #022959;
+  border: none;
+  background: none;
+  font-size: 1rem;
+}
+
+.confirm {
+  cursor: pointer;
+  border: none;
+  width: 7.688rem;
+  height: 3rem;
+  border-radius: 8px;
+  background: var(--pruple);
+  color: var(--white);
+  font-size: 1rem;
+}
+
+.confirm:hover {
+  background: var(--hoverPurple);
+  box-shadow: 0 0 10px rgba(72, 62, 255, 0.6);
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 21.438rem;
+    height: 24.25rem;
+    margin-top: 0.75rem;
+    background-color: var(--white);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .header {
+    width: 18.438rem;
+    height: 5.438rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.375rem;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .header p {
+    font-size: 1rem;
+  }
+
+  .content {
+    width: 18.438rem;
+    height: 18.831rem;
+  }
+
+  .group {
+    width: 18.438rem;
+    height: 15rem;
+  }
+
+  .paymentContainer {
+    width: 18.438rem;
+  }
+
+  .group hr {
+    width: 15.125rem;
+    align-self: center;
+  }
+
+  .planName {
+    width: 18.438rem;
+    height: 3.483rem;
+  }
+
+  .planName h5 {
+    margin-top: 0;
+  }
+
+  .name {
+    width: 15rem;
+    margin: 0.5rem;
+  }
+
+  .name {
+    align-self: flex-start;
+  }
+  .name button {
+    align-self: flex-start;
+  }
+
+  .totalPrice {
+    width: 16.438rem;
+  }
+
+  .totalPrice h2 {
+    font-size: 1rem;
+  }
+
+  .totalPrice p,
+  h2 {
+    margin: 0;
+  }
+}

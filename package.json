@@ -1,5 +1,5 @@
 {
-  "name": "monorepo-template",
+  "name": "form",
   "version": "0.0.0",
   "workspaces": [
     "packages/*"
@@ -7,9 +7,18 @@
   "scripts": {},
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
+    "@types/uuid": "^10.0.0",
+    "prettier": "^3.3.3",
     "typescript": "5.3.3"
   },
   "dependencies": {
-    "sst": "^3"
+    "@aws-sdk/client-dynamodb": "^3.637.0",
+    "@aws-sdk/lib-dynamodb": "^3.637.0",
+    "@serverless-stack/cli": "^1.18.4",
+    "@serverless-stack/core": "^1.18.4",
+    "@serverless-stack/resources": "^1.18.4",
+    "aws-sdk": "^2.1684.0",
+    "sst": "3.1.2",
+    "uuid": "^10.0.0"
   }
 }
