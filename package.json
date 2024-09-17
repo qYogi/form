@@ -15,10 +15,6 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.637.0",
     "@aws-sdk/lib-dynamodb": "^3.637.0",
-    "@serverless-stack/cli": "^1.18.4",
-    "@serverless-stack/core": "^1.18.4",
-    "@serverless-stack/resources": "^1.18.4",
-    "aws-sdk": "^2.1684.0",
     "uuid": "^10.0.0"
   }
 }
