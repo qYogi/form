@@ -23,5 +23,8 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-north-1
+      - run: echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID"
+      - run: echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"
       - run: npm ci
+      - run: npx sst --version
       - run: npx sst deploy --stage prod
