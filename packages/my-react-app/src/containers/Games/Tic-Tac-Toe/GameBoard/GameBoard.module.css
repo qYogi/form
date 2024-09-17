@@ -1,0 +1,153 @@
+.gameContainer {
+  flex-direction: column;
+  width: 28.75rem;
+  height: 38.938rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header {
+  width: 28.75rem;
+  height: 3.25rem;
+  /*display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: flex-start;*/
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5rem;
+}
+
+.logo {
+  width: 4.498rem;
+  height: 2rem;
+  align-self: center;
+}
+
+.header button {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 0.625rem;
+  border: none;
+  justify-self: end;
+}
+
+.playerTurn {
+  width: 8.75rem;
+  height: 3.25rem;
+  background-color: #8fa3ec;
+  border-bottom: 0.25rem solid #4f5a83;
+  border-radius: 0.625rem;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-evenly;
+}
+
+.playerTurn svg {
+  font-size: 1.25rem;
+  color: #a8bfc9;
+  height: 2rem;
+  width: 2rem;
+}
+
+.playerTurn h6 {
+  font-size: 1.25rem;
+  color: var(--denim);
+  align-self: center;
+  margin: 0;
+}
+
+.gameBoard {
+  margin-top: 1.118rem;
+  margin-bottom: 1.118rem;
+  width: 28.75rem;
+  height: 28.813rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.gameBoard button {
+  height: 8.75rem;
+  width: 8.75rem;
+  border-radius: 0.93rem;
+  cursor: pointer;
+  border: none;
+  background-color: var(--pruple);
+  border-bottom: solid 8px #2c2498;
+}
+
+.restart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: var(--lightGray);
+}
+
+.tableScore {
+  width: 28.68rem;
+  height: 4.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.tableScore .score {
+  border-radius: 0.938rem;
+  width: 8.75rem;
+  height: 4.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.tableScore h6 {
+  font-size: 0.8rem;
+  color: #10212a;
+  width: 56px;
+  height: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.tableScore h5 {
+  font-size: 1.5rem;
+  color: #10212a;
+  width: 26px;
+  height: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  padding-top: 5px;
+}
+
+.tableScore .scoreBox1 {
+  background-color: #f9818e;
+}
+
+.tableScore .scoreBox2 {
+  background-color: var(--lightGray);
+}
+
+.tableScore .scoreBox3 {
+  background-color: #ffaf7e;
+}
+
+/*.gameBoard .winning-pattern {*/
+/*  background-color: #31c3bd;*/
+/*}*/
+
+/*.gameBoard .winning-pattern2 {*/
+/*  background-color: #f2b137;*/
+/*}*/

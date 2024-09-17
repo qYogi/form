@@ -1,0 +1,136 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  background-image: url("./oval.svg");
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 1.3rem;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.55);
+}
+
+.XnO {
+  margin-top: 1rem;
+}
+
+.menu {
+  height: 471px;
+  width: 460px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
+.playerMark {
+  margin: 2.5rem 2.5rem;
+  height: 12rem;
+  width: 27rem;
+  background-color: var(--lighterPurple);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: #8fa3ecff solid 8px;
+}
+
+.playerMarkBtn {
+  background-color: var(--pruple);
+  height: 4.5rem;
+  width: 25rem;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+.X {
+  cursor: pointer;
+  padding: 0;
+  height: 3rem;
+  width: 12rem;
+  border-radius: 10px;
+  font: inherit;
+  background-color: var(--pruple);
+  border: none;
+}
+
+.X svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.O {
+  cursor: pointer;
+  padding: 0;
+  height: 3rem;
+  width: 12rem;
+  border-radius: 10px;
+  font: inherit;
+  background-color: var(--pruple);
+  border: none;
+}
+
+.active {
+  background-color: var(--babyBlue);
+}
+
+.O svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.playerMark h3,
+.playerMark h5 {
+  color: var(--denim);
+}
+
+.playerMark h3 {
+  font-size: 20px;
+  padding-bottom: 0.5rem;
+  margin: 0;
+  letter-spacing: 1.25px;
+}
+
+.playerMark h5 {
+  font-size: 16px;
+  padding-bottom: 0;
+  padding-top: 0.5rem;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.newGameBtn {
+  margin: 1rem 0;
+}
+
+#CPU,
+#Player {
+  font: inherit;
+  font-size: 24px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 27rem;
+  height: 67px;
+  border-radius: 25px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+}
+
+#CPU {
+  background-color: #6c37f2;
+  border-bottom: #4631d8 solid 8px;
+  opacity: 0.6;
+  cursor: default;
+}
+
+#Player {
+  background-color: #f237c6;
+  margin-top: 20px;
+  border-bottom: #bd2b9c solid 8px;
+}
