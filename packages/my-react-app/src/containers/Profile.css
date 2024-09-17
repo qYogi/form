@@ -44,7 +44,10 @@
 }
 
 .nav-panel {
-  background-color: var(--denim);
+  background-image: url("./Img/oval.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   border-radius: 0.5rem;
   border: 2px dashed var(--lighterPurple);
 }
@@ -65,7 +68,7 @@
 }
 
 .nav-pills .nav-link.active {
-  background-color: var(--lighterPurple);
+  background-color: #f9818e;
 }
 
 .profile {
@@ -79,12 +82,21 @@
 }
 
 .info-panel {
-  background-color: var(--lighterPurple);
+  background-color: var(--whiteGray);
+  /*background-image: url("./Img/panel.svg");*/
+  /*background-position: center;*/
+  /*background-repeat: no-repeat;*/
+  /*background-size: cover;*/
   border-radius: 0.5rem;
   margin-left: 3rem;
-  border: 2px dashed var(--denim);
   flex-grow: 1;
+  color: var(--denim);
   flex-basis: 0;
+}
+
+.info-panel h3 {
+  -webkit-text-stroke-width: 0.5;
+  -webkit-text-stroke-color: black;
 }
 
 .tab-content {

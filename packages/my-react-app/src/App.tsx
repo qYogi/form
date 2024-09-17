@@ -17,7 +17,6 @@ function App() {
     API.post("form", "/seedDb", {})
       .then((response) => console.log(response))
       .catch((error) => console.log(error));
-    console.log("Hello");
   }, []);
 
   async function onLoad() {

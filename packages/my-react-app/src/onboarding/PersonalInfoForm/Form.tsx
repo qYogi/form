@@ -1,8 +1,8 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import formStyles from "./form.module.css";
 import btnStyles from "./button.module.css";
-import { usePlan } from "/Users/bogdan/WebstormProjects/Form/form/packages/my-react-app/src/onboarding/FormContext.tsx";
 import { Auth } from "aws-amplify";
+import { usePlan } from "../FormContext.tsx";
 
 interface FormErrors {
   name: string;

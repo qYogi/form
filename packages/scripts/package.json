@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "@form/core": "*",
-    "sst": "3.1.2"
+    "sst": "3.1.13"
   },
   "scripts": {
     "shell": "sst shell tsx"

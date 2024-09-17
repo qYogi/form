@@ -1,0 +1,6 @@
+#fill-tabs {
+  background-color: var(--denim);
+  border-radius: 0.5rem;
+  border: 0 !important;
+  --bs-nav-tabs-link-active-bg: var(--babyBlue);
+}

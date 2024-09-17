@@ -13,6 +13,8 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Icon } from "./Img";
 import { IconTypes } from "./Img";
+import { GameTabs } from "./Games/GameTabs.tsx";
+import { useActiveSubscriptionContext } from "../components/HasSubscriptionActivatedContext.tsx";
 
 interface AddOnType {
   addOnTitle: string;
@@ -47,6 +49,7 @@ export const Profile = () => {
   const [profileInfo, setProfileInfo] = useState<ProfileInfoType | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const { refetchsubscriptionStatus } = useActiveSubscriptionContext();
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
@@ -142,7 +145,7 @@ export const Profile = () => {
     } catch (error) {
       console.error("Error updating subscription:", error);
     } finally {
-      nav("/form");
+      refetchsubscriptionStatus().then(() => {});
     }
     handleClose();
   }
@@ -181,6 +184,9 @@ export const Profile = () => {
                     </Nav.Item>
                     <Nav.Item>
                       <Nav.Link eventKey="second">Billing Information</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link eventKey="third">Games</Nav.Link>
                     </Nav.Item>
                   </Nav>
                 </Col>
@@ -332,6 +338,9 @@ export const Profile = () => {
                           </Modal.Footer>
                         </Modal>
                       </Stack>
+                    </Tab.Pane>
+                    <Tab.Pane eventKey="third">
+                      <GameTabs />
                     </Tab.Pane>
                   </Tab.Content>
                 </Col>
